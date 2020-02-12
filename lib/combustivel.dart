@@ -8,40 +8,61 @@ class Combustivel extends StatefulWidget {
 class _CombustivelState extends State<Combustivel> {
   @override
   Widget build(BuildContext context) {
+    TextEditingController _controllerAlcool = TextEditingController();
+    TextEditingController _controllerGasolina = TextEditingController();
+
     return Scaffold(
         appBar: AppBar(title: Text("Álcool ou Gasolina?")),
         body: Container(
-          padding: EdgeInsets.all(25),
+            child: SingleChildScrollView(
+          padding: EdgeInsets.all(32),
           child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
-              Image.asset("images/logo.png"),
-              Text(
-                "Saiba qual é melhor opção para o seu carro dependendo do momento e de preço atual dos dois combustíveis",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+              Padding(
+                padding: EdgeInsets.only(bottom: 32),
+                child: Image.asset("images/logo.png"),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 10),
+                child: Text("Saiba qual a melhor opção para o seu carro"),
               ),
               TextField(
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: "Digite o valor do litro de gasolina"
-                ),
+                decoration:
+                    InputDecoration(labelText: "Preço do alcool, ex:1.59"),
+                style: TextStyle(fontSize: 22),
+                controller: _controllerAlcool,
               ),
               TextField(
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    labelText: "Digite o valor do litro de álcool"
-                ),
+                decoration:
+                    InputDecoration(labelText: "Preço da gasolina, ex:1.59"),
+                style: TextStyle(fontSize: 22),
+                controller: _controllerGasolina,
               ),
-              RaisedButton(
-                  color: Colors.blue,
-                  textColor: Colors.white,
+              Padding(
+                padding: EdgeInsets.only(top: 10),
+                child: RaisedButton(
                   padding: EdgeInsets.all(15),
-                  child: Text(
-                    "Calcular",
-                    style: TextStyle(fontSize: 20),
-                  ))
+                  textColor: Colors.white,
+                  color: Colors.indigo,
+                  onPressed: () {},
+                  child: Text("Clique para calcular"),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.only(top: 20),
+                child: Text(
+                  "É melhor abastercer com qulaqer coisa",
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              )
             ],
           ),
-        ));
+        )));
   }
 }
