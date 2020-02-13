@@ -6,10 +6,44 @@ class Combustivel extends StatefulWidget {
 }
 
 class _CombustivelState extends State<Combustivel> {
+  TextEditingController _controllerAlcool = TextEditingController();
+  TextEditingController _controllerGasolina = TextEditingController();
+
+  String _resultado = "";
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController _controllerAlcool = TextEditingController();
-    TextEditingController _controllerGasolina = TextEditingController();
+    void _calcular() {
+      double precoAlcool = double.tryParse(_controllerAlcool.text);
+      double precoGasolina = double.tryParse(_controllerGasolina.text);
+
+      void _limparCampos() {
+        _controllerAlcool.text = "";
+        _controllerGasolina.text = "";
+      }
+
+      print("Chega aqui");
+
+      if (precoAlcool == null || precoGasolina == null) {
+        setState(() {
+          _resultado =
+              "Você passou o valor do álcool e/ou gasolina com vírgula. Deveria ser ponto";
+        });
+      } else {
+        if ((precoGasolina * 0.7) >= precoAlcool) {
+          print("Chega no Alcool");
+          setState(() {
+            _resultado = "Abasteca com Alcool";
+          });
+        } else {
+          print("Chega na gasolina");
+          setState(() {
+            _resultado = "Abasteca com gasolina";
+          });
+        }
+        _limparCampos();
+      }
+    }
 
     return Scaffold(
         appBar: AppBar(title: Text("Álcool ou Gasolina?")),
@@ -47,14 +81,16 @@ class _CombustivelState extends State<Combustivel> {
                   padding: EdgeInsets.all(15),
                   textColor: Colors.white,
                   color: Colors.indigo,
-                  onPressed: () {},
+                  onPressed: () {
+                    _calcular();
+                  },
                   child: Text("Clique para calcular"),
                 ),
               ),
               Padding(
                 padding: EdgeInsets.only(top: 20),
                 child: Text(
-                  "É melhor abastercer com qulaqer coisa",
+                  _resultado,
                   style: TextStyle(
                     fontSize: 22,
                     fontWeight: FontWeight.bold,
